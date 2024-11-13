@@ -17,5 +17,9 @@ public class Review {
     @Id       /*to note that below properties are unique identifiers for the movies */
     private ObjectId id;
     private String body;
+    private String movieId;
 
+    public Review(String body) {
+        this.body = body;
+    }
 }
