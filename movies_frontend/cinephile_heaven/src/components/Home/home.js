@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 
 const home = ({ movies }) => {
@@ -26,3 +27,15 @@ const home = ({ movies }) => {
 };
 
 export default home;
+=======
+import React from 'react';
+import Hero from '../Hero/hero';
+
+const home = ({movies}) => { 
+    return(
+        <Hero movies={movies}/>
+    )
+}
+
+export default home
+>>>>>>> 5c4cb7fe03ff652749d285c6b7e91f6b0ee61395
