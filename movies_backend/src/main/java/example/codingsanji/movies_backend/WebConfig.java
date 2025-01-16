@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**") // Applies to all endpoints
                 .allowedOrigins(
                         "http://localhost:3000",  // React dev server
-                        " https://51d2-42-116-6-42.ngrok-free.app" // Ngrok URL gotten from running ngrok.exe http 8080
+                        "https://23f1-171-250-165-239.ngrok-free.app" // Ngrok URL gotten from running ngrok.exe http 8080
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow these methods
                 .allowedHeaders("*") // Allow all headers
