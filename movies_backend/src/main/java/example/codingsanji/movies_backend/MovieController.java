@@ -13,31 +13,24 @@ public class MovieController {
     @Autowired
     private TMDBService tmdbService;
 
-    @Autowired
-    private ReviewService reviewService;
-
-    // Fetch movie details from TMDB
     @GetMapping("/{imdbId}")
     public ResponseEntity<Movie> getMovieDetails(@PathVariable String imdbId) {
         Movie movie = tmdbService.fetchMovieDetails(imdbId);
         return ResponseEntity.ok(movie);
     }
 
-    // Add a review for a movie
-    @PostMapping("/{imdbId}/reviews")
-    public ResponseEntity<Review> addReview(@PathVariable String imdbId, @RequestBody Review review) {
-        Review createdReview = reviewService.createReview(review.getBody(), imdbId);
-        return ResponseEntity.ok(createdReview);
+    @GetMapping("/popular")
+    public ResponseEntity<List<Movie>> getPopularMovies() {
+        List<Movie> movies = tmdbService.fetchPopularMovies();
+        return ResponseEntity.ok(movies);
     }
 
-    // Fetch all reviews for a specific movie
-    @GetMapping("/{imdbId}/reviews")
-    public ResponseEntity<List<Review>> getReviews(@PathVariable String imdbId) {
-        List<Review> reviews = reviewService.getReviewsByMovieId(imdbId);
-        return ResponseEntity.ok(reviews);
+    @GetMapping("/genres")
+    public ResponseEntity<List<String>> getGenres() {
+        List<String> genres = tmdbService.fetchGenres();
+        return ResponseEntity.ok(genres);
     }
 
-    // Fetch movie recommendations based on genre
     @GetMapping("/recommendations/{genreId}")
     public ResponseEntity<List<Movie>> getRecommendations(@PathVariable String genreId) {
         List<Movie> recommendations = tmdbService.fetchRecommendationsByGenre(genreId);
