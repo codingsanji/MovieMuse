@@ -1,13 +1,18 @@
 import React from 'react';
-import Movies from './components/Movies/movies';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import SearchResultsPage from './pages/SearchResultsPage';
+import MovieDetailsPage from './pages/MovieDetailsPage';
 
 const App = () => {
   return (
-    <div className="App">
-      <h1>Movie Reviews</h1>
-      <Movies />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/search/:query" element={<SearchResultsPage />} />
+        <Route path="/movie/:id" element={<MovieDetailsPage />} />
+      </Routes>
+    </Router>
   );
 };
 
