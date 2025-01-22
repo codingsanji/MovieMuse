@@ -76,7 +76,6 @@ export const searchMovies = async (query) => {
     throw error;
   }
 };
-<<<<<<< HEAD
 
 // Fetch movies by genre
 export const getMoviesByGenre = async (genreId) => {
@@ -100,5 +99,3 @@ export const getMoviesByGenre = async (genreId) => {
     throw error;
   }
 };
-=======
->>>>>>> 248f88310de50a967f65244d5021f836c6d9d0c6
