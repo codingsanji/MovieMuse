@@ -1,8 +1,14 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 
 const MovieDetail = ({ movie, trailer }) => {
   const { title, overview, poster_path, release_date, genres } = movie;
+=======
+
+const MovieDetail = ({ movie, trailer }) => {
+  const { title, overview, poster_path, release_date } = movie;
+>>>>>>> 248f88310de50a967f65244d5021f836c6d9d0c6
   const posterUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
   const trailerUrl = trailer ? `https://www.youtube.com/embed/${trailer.key}` : null;
 
@@ -11,6 +17,7 @@ const MovieDetail = ({ movie, trailer }) => {
       <img src={posterUrl} alt={title} className="w-full lg:w-1/3 rounded-lg shadow-lg mb-4 lg:mb-0 lg:mr-8" />
       <div className="lg:w-2/3">
         <h1 className="text-3xl font-bold mb-2">{title}</h1>
+<<<<<<< HEAD
         <p className="text-gray-600 mb-2">
           <strong>Released:</strong> {release_date}
         </p>
@@ -26,6 +33,9 @@ const MovieDetail = ({ movie, trailer }) => {
             </Link>
           ))}
         </p>
+=======
+        <p className="text-gray-600 mb-4">Released: {release_date}</p>
+>>>>>>> 248f88310de50a967f65244d5021f836c6d9d0c6
         <p className="text-lg mb-6">{overview}</p>
         {trailerUrl && (
           <div className="relative aspect-w-16 aspect-h-9">

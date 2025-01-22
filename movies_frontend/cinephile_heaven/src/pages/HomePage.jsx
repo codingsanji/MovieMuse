@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getTrendingMovies, getPopularMovies, getNewMovies } from '../services/tmdbService';
 
+<<<<<<< HEAD
 import Header from '../components/Header';
+=======
+>>>>>>> 248f88310de50a967f65244d5021f836c6d9d0c6
 import SearchBar from '../components/SearchBar';
 import MovieCard from '../components/MovieCard';
 
@@ -21,7 +24,10 @@ const HomePage = () => {
 
   return (
     <div>
+<<<<<<< HEAD
       <Header />
+=======
+>>>>>>> 248f88310de50a967f65244d5021f836c6d9d0c6
       <HeroSection />
       <div className="container mx-auto px-4 py-8">
         <SearchBar />
