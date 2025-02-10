@@ -1,24 +1,23 @@
 package example.codingsanji.movies_backend;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.*;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;;
-
-@Document(collection = "reviews")
+@Document(collection = "users")
 @Data /*takes care of all getters and setters*/
 @AllArgsConstructor /*takes all below private fields as arguments*/
 @NoArgsConstructor /*takes no parameters*/
-public class Review {
+public class User {
     @Id       /*to note that below properties are unique identifiers for the movies */
     private ObjectId id;
-    private String body;
-    private String movieId;
-
-    public Review(String body) {
-        this.body = body;
-    }
+    
+    @Indexed(unique = true)
+    private String username;
+    private String password;
 }
