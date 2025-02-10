@@ -48,10 +48,7 @@ public class AuthFilter extends OncePerRequestFilter{
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-            catch (MalformedJwtException e){
-                return;
-            }
-            catch (UsernameNotFoundException e){
+            catch (Exception e){
                 return;
             }
         }
