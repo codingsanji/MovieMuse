@@ -1,11 +1,10 @@
 package example.codingsanji.movies_backend;
 
+import example.codingsanji.movies_backend.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Optional;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-public interface UserRepository extends MongoRepository<User, ObjectId> {
-    Optional<User> findByUsername(String username);
-    Optional<User> findByUsernameAndPassword(String username, String password);
+public interface UserRepository extends MongoRepository<User, String> {
+    Optional<User> findByEmail(String email);
+    Optional<User> findByUsername(String username); // Add this
 }
