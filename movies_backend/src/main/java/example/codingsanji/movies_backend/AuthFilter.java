@@ -36,11 +36,11 @@ public class AuthFilter extends OncePerRequestFilter{
         if (token!=null && !token.isBlank()) {
             try{
                 Claims claims = JWTUtils.Decode(token);
-                String username = claims.getSubject();
+                String email = claims.getSubject();
 
                 // we can parse the username from the provided token, let's authenticate this user 
                 
-                UserDetails userDetails = UserDetailService.loadUserByUsername(username);
+                UserDetails userDetails = UserDetailService.loadUserByUsername(email);
 
                 var authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, userDetails.getPassword(), userDetails.getAuthorities());

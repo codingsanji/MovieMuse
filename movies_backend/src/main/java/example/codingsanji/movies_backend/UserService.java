@@ -18,13 +18,13 @@ public class UserService {
     }
 
 
-    public ResponseEntity<String> login(String username, String password) {
-        Optional<User> user = userRepository.findByUsername(username);
+    public ResponseEntity<String> login(String email, String password) {
+        Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()){
             User existingUser = user.get();
             if(existingUser.getPassword().equals(Security.hashPassword(password))){
-                String token = JWTUtils.Generate(existingUser.getUsername());
-                return ResponseEntity.ok("Token: " + token);
+                String token = JWTUtils.Generate(existingUser.getEmail());
+                return ResponseEntity.ok(token);
             }else{
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
             }
@@ -33,25 +33,25 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<String> register(String username, String password) {
-        Optional<User> user = userRepository.findByUsername(username);
+    public ResponseEntity<String> register(String email, String password) {
+        Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
         }
         User newUser = new User();
-        newUser.setUsername(username);
+        newUser.setEmail(email);
         newUser.setPassword(Security.hashPassword(password));
         userRepository.save(newUser);
         return ResponseEntity.ok("Registration successful");
     }
 
-    public ResponseEntity<String> deleteUser(String username) {
-        Optional<User> user = userRepository.findByUsername(username);
+    public ResponseEntity<String> deleteUser(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()){
             userRepository.delete(user.get());
             return ResponseEntity.ok("User deleted successfully");  
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No user found with the provided username");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No user found with the provided email");
     }
 
 }

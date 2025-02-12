@@ -31,12 +31,12 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserServiceDTO user) {
-        return userService.login(user.username(), user.password());
+        return userService.login(user.email(), user.password());
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserServiceDTO user) {
-        return userService.register(user.username(), user.password());
+        return userService.register(user.email(), user.password());
     }
 
     @DeleteMapping("/auth/delete/{username}")

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+// const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = "http://localhost:8080";
 
 const Signin = () => {
   const [email, setEmail] = useState('');
@@ -11,9 +12,13 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BACKEND_URL}/auth/login`, { email, password });
-      console.log('Login successful:', response.data);
-      alert('Login successful!');
+      const response = await axios.post(`${BACKEND_URL}/api/users/login`, { email, password });
+      if (response.status == 200) {
+        console.log('Login successful:', response.data);
+        localStorage.setItem('token', response.data); // Store token in localStorage for future requests
+        alert('Login successful!');
+      }
+
     } catch (error) {
       console.error('Login error:', error);
       setError('Invalid email or password.');

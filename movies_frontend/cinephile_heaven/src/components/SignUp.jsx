@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+// const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = "http://localhost:8080";
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -11,9 +12,13 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BACKEND_URL}/auth/register`, { email, password });
-      console.log('Signup successful:', response.data);
-      alert('Signup successful!');
+      const response = await axios.post(`${BACKEND_URL}/api/users/register`, { email, password });
+      if (response.status == 200) {
+        alert('Registration successful!');
+        window.location.href = '/login'; // Redirect to login page after registration
+      } else {
+        setError('Failed to register. Please try again.');
+      }
     } catch (error) {
       console.error('Signup error:', error);
       setError('Could not register.');

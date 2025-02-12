@@ -22,11 +22,11 @@ public static String secret = "THIS_IS_TOP_SECRET";
         return null;
     }
 
-    public static String Generate(String username) {
+    public static String Generate(String email) {
         Date currentDate = new Date();
         long currentTime = currentDate.getTime();
         return Jwts.builder()
-            .subject(username)
+            .subject(email)
             .issuedAt(currentDate)
             .expiration(new Date(currentTime + 1000*(60*60*2))) // ttl = 2 hours
             .encryptWith(createKey(secret), Jwts.ENC.A256GCM)
