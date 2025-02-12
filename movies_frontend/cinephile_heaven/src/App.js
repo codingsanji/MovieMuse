@@ -6,18 +6,20 @@ import HomePage from './pages/HomePage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import MovieDetailsPage from './pages/MovieDetailsPage';
 import GenrePage from './pages/GenrePage';
+import Header from './components/Header';
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login&signup" element={<LogUp />} />
-        <Route path="/search/:query" element={<SearchResultsPage />} />
-        <Route path="/movie/:id" element={<MovieDetailsPage />} />
-        <Route path="/genre/:genreId" element={<GenrePage />} />
-      </Routes>
-    </Router>
+    <>
+      <Header/>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login&signup" element={<LogUp />} />
+          <Route path="/search/:query" element={<SearchResultsPage />} />
+          <Route path="/movie/:id" element={<MovieDetailsPage />} />
+          <Route path="/genre/:genreId" element={<GenrePage />} />
+        </Routes>
+    </>
   );
 };
 
