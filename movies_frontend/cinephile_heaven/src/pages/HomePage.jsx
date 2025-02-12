@@ -21,7 +21,7 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* <Header /> */}
+      <Header />
       <HeroSection />
       <div className="container mx-auto px-4 py-8">
         <SearchBar />

@@ -6,12 +6,10 @@ import HomePage from './pages/HomePage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import MovieDetailsPage from './pages/MovieDetailsPage';
 import GenrePage from './pages/GenrePage';
-import Header from './components/Header';
 
 const App = () => {
   return (
     <>
-      <Header/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login&signup" element={<LogUp />} />
