@@ -17,11 +17,11 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @PostMapping
+    @PostMapping("/auth")
     public ResponseEntity<Review> createReview(@RequestBody Map<String, Object> payload,
-                                               @AuthenticationPrincipal UserDetails userDetails) {
-        String userId = userDetails.getUsername(); // Extract user ID from JWT
-
+                                               @RequestHeader("Authorization") String token) {
+        String userId = JWTUtils.Decode(token).getSubject();  // Extract user ID from JWT
+        System.out.println(userId);
         String reviewBody = (String) payload.get("reviewBody");
         String imdbId = (String) payload.get("imdbId");
         int rating = (int) payload.get("rating");
