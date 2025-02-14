@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -8,6 +9,7 @@ const Signin = ({ onSwitchToSignup }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,8 +17,9 @@ const Signin = ({ onSwitchToSignup }) => {
       const response = await axios.post(`${BACKEND_URL}/api/users/login`, { email, password });
       if (response.status === 200) {
         console.log('Login successful:', response.data);
-        localStorage.setItem('token', response.data); // Store token in localStorage for future requests
+        localStorage.setItem('token', response.data); // Store token in localStorage
         alert('Login successful!');
+        navigate('/'); // Redirect to homepage after login
       }
     } catch (error) {
       console.error('Login error:', error);

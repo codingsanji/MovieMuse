@@ -3,6 +3,8 @@ package example.codingsanji.movies_backend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,25 +17,21 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @Autowired
-    private ReviewRepository reviewRepository;
-
     @PostMapping
-    public ResponseEntity<Review> createReview(@RequestBody Map<String, String> payload) {
-        // Call the createReview method correctly with the review body and IMDb ID
-        Review createdReview = reviewService.createReview(payload.get("reviewBody"), payload.get("imdbId"));
-        return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
-    }
+    public ResponseEntity<Review> createReview(@RequestBody Map<String, Object> payload,
+                                               @AuthenticationPrincipal UserDetails userDetails) {
+        String userId = userDetails.getUsername(); // Extract user ID from JWT
 
-    @GetMapping
-    public ResponseEntity<List<Review>> getAllReviews() {
-        // Get all reviews from the repository
-        return new ResponseEntity<>(reviewRepository.findAll(), HttpStatus.OK);
+        String reviewBody = (String) payload.get("reviewBody");
+        String imdbId = (String) payload.get("imdbId");
+        int rating = (int) payload.get("rating");
+
+        Review createdReview = reviewService.createReview(reviewBody, imdbId, userId, rating);
+        return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
     }
 
     @GetMapping("/movie/{imdbId}")
     public ResponseEntity<List<Review>> getReviewsByMovieId(@PathVariable String imdbId) {
-        // Fetch reviews associated with a particular movie's IMDb ID
         List<Review> reviews = reviewService.getReviewsByMovieId(imdbId);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getMovieDetails, getMovieTrailer } from '../services/tmdbService';
-import MovieDetail from '../components/MovieDetail';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getMovieDetails, getMovieTrailer } from "../services/tmdbService";
+import MovieDetail from "../components/MovieDetail";
 
 const MovieDetailsPage = () => {
   const { id } = useParams();
