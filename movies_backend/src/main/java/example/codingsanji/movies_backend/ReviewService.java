@@ -19,7 +19,6 @@ public class ReviewService {
         return reviewRepository.findByMovieIdAndUserId(imdbId, userId);
     }
 
-    // ✅ Fetch all reviews for a movie
     public List<Review> getReviewsByMovieId(String imdbId) {
         return reviewRepository.findByMovieId(imdbId);
     }

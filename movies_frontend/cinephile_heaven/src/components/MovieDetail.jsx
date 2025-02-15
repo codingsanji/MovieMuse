@@ -11,7 +11,6 @@ const MovieDetail = ({ movie, trailer }) => {
   const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
-  const userEmail = localStorage.getItem("userEmail") || "guest@example.com";
 
   useEffect(() => {
     fetchReviews();
@@ -32,22 +31,33 @@ const MovieDetail = ({ movie, trailer }) => {
       return;
     }
 
+    const token = localStorage.getItem("token"); // Retrieve JWT token
+    if (!token) {
+      alert("You must be logged in to submit a review.");
+      return;
+    }
+
     try {
       const reviewData = {
         reviewBody: reviewText,
         imdbId: id,
-        rating, // Send rating value to backend
+        rating,
       };
 
-      const response = await axios.post("http://localhost:8080/api/reviews", reviewData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:8080/api/reviews/auth",
+        reviewData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Send the JWT token
+          },
+        }
+      );
 
       console.log("Review submitted:", response.data);
 
-      setReviews([...reviews, response.data]);
+      await fetchReviews(); // Fetch updated reviews from database
       setReviewText("");
       setRating(0);
     } catch (error) {
@@ -110,6 +120,20 @@ const MovieDetail = ({ movie, trailer }) => {
           <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" onClick={submitReview}>
             Submit Review
           </button>
+
+          {/* Display Reviews */}
+          <div className="mt-6">
+            {reviews.length > 0 ? (
+              reviews.map((review, index) => (
+                <div key={index} className="p-3 mb-3 border rounded bg-white shadow">
+                  <p className="font-semibold">{review.body}</p>
+                  <p className="text-gray-600 text-sm">Rating: {review.rating} / 5</p>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">No reviews yet.</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
